@@ -1,0 +1,36 @@
+imgobj = videoinput('winvideo');
+snapshot = getsnapshot(imgobj);
+
+R = ceil(snapshot(:,:,1));
+G = ceil(snapshot(:,:,2));
+B = ceil(snapshot(:,:,3));
+R_iso = R - (G+B);
+G_iso = G - (R+B);
+B_iso = B - (R+G);
+%R_mean = ceil(prod(R_iso));
+%G_mean = ceil(sum(G_iso).*1)
+%B_mean = ceil(prod(B_iso));
+
+All_iso = cat(3, R_iso, G_iso, B_iso);
+new_iso = imagesc(100.*All_iso);
+
+R = All_iso(:,:,1);
+G = All_iso(:,:,2);
+B = All_iso(:,:,3);
+
+
+
+R_mean = mean (ceil(sum(R)) + 1) 
+G_mean = mean (ceil(sum(G)) + 1)
+B_mean = mean (ceil(sum(B)) + 1)
+
+if B_mean < 500 && G_mean < 500 && R_mean < 500
+    fprintf('empty or white')
+elseif G_mean > R_mean && G_mean > B_mean
+      fprintf('Probably a green ball')
+elseif R_mean > B_mean && R_mean > G_mean
+    fprintf('Probably a red ball')
+elseif B_mean > G_mean && B_mean > R_mean
+    fprintf('probably a blue ball :(')
+
+end
