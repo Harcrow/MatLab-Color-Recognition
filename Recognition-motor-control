@@ -1,0 +1,129 @@
+MatLab-Color-Recognition
+========================
+%%Caputuring an image
+imgobj = videoinput('winvideo');
+snapshot = getsnapshot(imgobj);
+
+%setting certain variables to certain colors
+R=snapshot(:,:,1);
+G=snapshot(:,:,2);
+B=snapshot(:,:,3);
+
+%Isolating colors
+RI=R-(G+B);
+GI=G-(R+B);
+BI=B-(R+G);
+WI=((R./2)+(G./2)+(B./2))-100;
+
+%Threshold Testing
+RM=sum(sum(RI))/100000;
+GM=sum(sum(GI))/100000;
+BM=sum(sum(BI))/100000;
+WM=(sum(sum(WI))-(245)*(100000))/100000;
+        
+subplot(151);
+imagesc(snapshot);
+subplot(152);
+imagesc(RI);
+subplot(153);
+imagesc(GI); 
+subplot(154);
+imagesc(BI);
+subplot(155);
+imagesc(WI);
+
+
+%Setting relative poition 
+%red_steps = red_nose /1.8;
+%blue_steps = blue_nose /1.8;
+%green_steps = green_nose /1.8;
+%white_steps = white_nose /1.8;
+
+balls = 4;
+    for i = 1:balls
+        
+      
+        if RM>1
+        fprintf('---RED---\n')
+        %move_to = abs(red_nose - nose);
+        steps = 50;
+            for n = 1:steps
+                onerot;
+            end
+        balls = balls - 1;
+        fprintf('%.0f left', balls)
+        yes = input('Continue? ')
+        steps = 200-steps;
+        pause
+        for to_center = 1:steps;
+            onerot;
+        end
+        
+        end
+       
+    Blarg
+    if GM>1
+        fprintf('---GREEN---\n')
+        %move_to = 360- abs(green_nose - nose)
+        steps = 100;
+            for h = 1:steps
+                onerot;
+            end
+        balls = balls - 1;
+        fprintf('%.0f left', balls)
+        yes = input('Continue? ')
+         steps = 200-steps;
+         pause
+        for to_center2 = 1:steps;
+            onerot;
+        end
+        
+    end
+      
+    Blarg
+    if BM>1
+        fprintf('---BLUE---\n')
+        %move_to = abs(blue_nose - nose);
+        steps = 150;
+        
+            for w = 1:steps
+                onerot;
+            end
+        fprintf('%.0f left', balls)
+        balls = balls - 1;
+        yes = input('Continue? ')
+         steps = 200-steps;
+         pause
+        for to_center3 = 1:steps;
+            onerot;
+        end
+        
+    end
+       
+    Blarg
+    if abs(WM) > 1
+        fprintf('---WHITE---\n')
+        %move_to = abs(white_nose - nose);
+        steps = 0;
+            for q = 1:steps
+                onerot;
+            end
+        balls = balls - 1;
+        fprintf('%.0f left', balls)
+        yes = input('Continue? ')
+        steps = 200-steps;
+        pause
+        for to_center4 = 1:steps;
+            onerot;
+        
+      
+        end
+        
+    end
+    
+    end
+if balls >= 0
+    fprintf('There is nothing to do!')
+end
+
+
